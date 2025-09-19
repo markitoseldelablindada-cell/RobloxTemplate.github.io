@@ -17,801 +17,333 @@
             --success: #4caf50;
             --error: #f44336;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            background-image: linear-gradient(to bottom right, #1a1a2e, #0a0a0a);
-            min-height: 100vh;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
-            opacity: 0.1;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.8rem;
-            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-        }
-        
-        .logo h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        nav {
-            background-color: var(--dark-bg);
-            padding: 1rem;
-            border-bottom: 1px solid #333;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 2.5rem;
-        }
-        
-        nav a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            position: relative;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s;
-            transform: translateX(-50%);
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a:hover::after {
-            width: 80%;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 2.5rem auto;
-            padding: 0 1.5rem;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            border-radius: 16px;
-            margin-bottom: 3rem;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary) 10%, transparent 30%, transparent 70%, var(--secondary) 90%);
-            opacity: 0.2;
-        }
-        
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            color: var(--light);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
-        }
-        
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-        
-        .btn:hover::before {
-            opacity: 1;
-        }
-        
-        .btn:disabled {
-            background: var(--gray);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .btn:disabled::before {
-            display: none;
-        }
-        
-        .btn .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .tabs-container {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            border: 1px solid #333;
-            margin-bottom: 3rem;
-        }
-        
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 0;
-            gap: 0;
-            background: linear-gradient(to right, #1a1a2e, #16213e);
-            padding: 0.8rem;
-        }
-        
-        .tab-btn {
-            padding: 1.2rem 2.5rem;
-            background-color: transparent;
-            color: var(--light);
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 10px;
-            margin: 0 0.3rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .tab-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
-        }
-        
-        .tab-btn.active {
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .tab-btn.active::before {
-            opacity: 1;
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 2.5rem;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .download-form {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        
-        .form-group label {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .form-group input {
-            padding: 1.2rem;
-            background-color: #2a2a2a;
-            color: var(--light);
-            border: 2px solid #444;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        .form-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 123, 49, 0.3);
-        }
-        
-        .instructions {
-            background: linear-gradient(to bottom right, #1a1a2e, #16213e);
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 2.5rem;
-            border: 1px solid #333;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .instructions h3 {
-            color: var(--secondary);
-            margin-bottom: 1.2rem;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .instructions h3 i {
-            font-size: 1.6rem;
-        }
-        
-        .instructions ol {
-            margin-left: 1.8rem;
-            color: var(--gray);
-        }
-        
-        .instructions li {
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--primary);
-            position: relative;
-            padding-bottom: 1rem;
-            font-size: 2.2rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 3px;
-        }
-        
-        footer {
-            background: linear-gradient(to right, #0a0a0a, #1a1a2e);
-            color: var(--light);
-            padding: 4rem 1rem;
-            text-align: center;
-            border-top: 1px solid #333;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .footer-content h3 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-        
-        .footer-content p {
-            margin-bottom: 1rem;
-            color: var(--gray);
-        }
-        
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            padding: 18px 28px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(-30px);
-            transition: opacity 0.4s, transform 0.4s;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 400px;
-        }
-        
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .notification.success {
-            background: linear-gradient(to right, var(--success), #2e7d32);
-            border-left: 5px solid #2e7d32;
-        }
-        
-        .notification.error {
-            background: linear-gradient(to right, var(--error), #c62828);
-            border-left: 5px solid #c62828;
-        }
-        
-        .notification i {
-            font-size: 1.5rem;
-        }
-        
-        .preview-container {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background-color: #1a1a2e;
-            border-radius: 12px;
-            border: 1px solid #333;
-        }
-        
-        .preview-container h3 {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .preview-image {
-            max-width: 300px;
-            max-height: 300px;
-            border: 2px solid #444;
-            border-radius: 8px;
-            margin: 0 auto;
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.8rem;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .tab-btn {
-                width: 100%;
-                margin: 0.3rem 0;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .notification {
-                left: 20px;
-                right: 20px;
-                max-width: none;
-            }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+        body { background-color: var(--dark); color: var(--light); min-height:100vh; line-height:1.6; background-image: linear-gradient(to bottom right, #1a1a2e, #0a0a0a); }
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color:white; padding:1.5rem; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.6); position:relative; overflow:hidden; }
+        header::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>'); opacity:0.1; }
+        .logo { display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom:10px; }
+        .logo i { font-size:2.8rem; filter:drop-shadow(0 0 5px rgba(0,0,0,0.5)); }
+        .logo h1 { font-size:2.5rem; font-weight:800; text-shadow:2px 2px 4px rgba(0,0,0,0.5); }
+        nav { background-color: var(--dark-bg); padding:1rem; border-bottom:1px solid #333; position:sticky; top:0; z-index:100; }
+        nav ul { display:flex; justify-content:center; list-style:none; gap:2.5rem; }
+        nav a { color: var(--light); text-decoration:none; font-weight:600; transition:all 0.3s; padding:0.6rem 1.2rem; border-radius:6px; position:relative; }
+        nav a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background: var(--primary); transition:all 0.3s; transform:translateX(-50%); }
+        nav a:hover { color: var(--primary); }
+        nav a:hover::after { width:80%; }
+        .container { max-width:1200px; margin:2.5rem auto; padding:0 1.5rem; }
+        .hero { text-align:center; padding:4rem 2rem; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); background-size:cover; background-position:center; color:white; border-radius:16px; margin-bottom:3rem; border:1px solid #333; box-shadow:0 10px 30px rgba(0,0,0,0.5); position:relative; overflow:hidden; }
+        .hero::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(45deg, var(--primary) 10%, transparent 30%, transparent 70%, var(--secondary) 90%); opacity:0.2; }
+        .hero h2 { font-size:3rem; margin-bottom:1.5rem; color: var(--primary); text-shadow:2px 2px 4px rgba(0,0,0,0.7); }
+        .hero p { font-size:1.3rem; max-width:700px; margin:0 auto 2rem; color: var(--light); }
+        .btn { display:inline-block; background:linear-gradient(to right, var(--primary), var(--secondary)); color:white; padding:1rem 2rem; border-radius:50px; text-decoration:none; font-weight:700; transition:all 0.3s; border:none; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.3); z-index:1; }
+        .btn::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to right, var(--secondary), var(--primary)); opacity:0; transition:opacity 0.3s; z-index:-1; }
+        .btn:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.4); }
+        .btn:hover::before { opacity:1; }
+        .btn:disabled { background: var(--gray); cursor:not-allowed; transform:none; box-shadow:none; }
+        .btn:disabled::before { display:none; }
+        .btn .spinner { display:inline-block; width:20px; height:20px; border:3px solid rgba(255,255,255,0.3); border-radius:50%; border-top-color:white; animation:spin 1s ease-in-out infinite; margin-right:10px; vertical-align:middle; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .tabs-container { background-color: var(--card-bg); border-radius:16px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.4); border:1px solid #333; margin-bottom:3rem; }
+        .tabs { display:flex; justify-content:center; margin-bottom:0; gap:0; background: linear-gradient(to right, #1a1a2e, #16213e); padding:0.8rem; }
+        .tab-btn { padding:1.2rem 2.5rem; background-color:transparent; color:var(--light); border:none; font-weight:700; cursor:pointer; transition:all 0.3s; border-radius:10px; margin:0 0.3rem; position:relative; overflow:hidden; }
+        .tab-btn::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to right, var(--primary), var(--secondary)); opacity:0; transition:opacity 0.3s; z-index:-1; }
+        .tab-btn.active { color:white; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+        .tab-btn.active::before { opacity:1; }
+        .tab-content { display:none; padding:2.5rem; animation:fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .tab-content.active { display:block; }
+        .download-form { display:flex; flex-direction:column; gap:2rem; max-width:600px; margin:0 auto; }
+        .form-group { display:flex; flex-direction:column; gap:0.8rem; }
+        .form-group label { font-weight:700; color:var(--primary); font-size:1.1rem; }
+        .form-group input { padding:1.2rem; background-color:#2a2a2a; color:var(--light); border:2px solid #444; border-radius:10px; font-size:1.1rem; transition:all 0.3s; }
+        .form-group input:focus { border-color:var(--primary); outline:none; box-shadow:0 0 0 3px rgba(255,123,49,0.3); }
+        .instructions { background:linear-gradient(to bottom right, #1a1a2e, #16213e); padding:2rem; border-radius:12px; margin-top:2.5rem; border:1px solid #333; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+        .instructions h3 { color:var(--secondary); margin-bottom:1.2rem; font-size:1.4rem; display:flex; align-items:center; gap:10px; }
+        .instructions h3 i { font-size:1.6rem; }
+        .instructions ol { margin-left:1.8rem; color: var(--gray); }
+        .instructions li { margin-bottom:0.8rem; line-height:1.6; }
+        .section-title { text-align:center; margin-bottom:3rem; color:var(--primary); position:relative; padding-bottom:1rem; font-size:2.2rem; }
+        .section-title::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100px; height:5px; background:linear-gradient(to right, var(--primary), var(--secondary)); border-radius:3px; }
+        footer { background:linear-gradient(to right, #0a0a0a, #1a1a2e); color:var(--light); padding:4rem 1rem; text-align:center; border-top:1px solid #333; margin-top:4rem; }
+        .footer-content { max-width:800px; margin:0 auto; }
+        .footer-content h3 { color:var(--primary); margin-bottom:1.5rem; font-size:1.8rem; }
+        .footer-content p { margin-bottom:1rem; color:var(--gray); }
+        .notification { position:fixed; top:30px; right:30px; padding:18px 28px; border-radius:12px; color:white; font-weight:600; z-index:1000; opacity:0; transform:translateY(-30px); transition:opacity 0.4s, transform 0.4s; box-shadow:0 8px 20px rgba(0,0,0,0.3); display:flex; align-items:center; gap:12px; max-width:400px; }
+        .notification.show { opacity:1; transform:translateY(0); }
+        .notification.success { background:linear-gradient(to right, var(--success), #2e7d32); border-left:5px solid #2e7d32; }
+        .notification.error { background:linear-gradient(to right, var(--error), #c62828); border-left:5px solid #c62828; }
+        .notification i { font-size:1.5rem; }
+        .preview-container { text-align:center; margin:2rem 0; padding:1.5rem; background-color:#1a1a2e; border-radius:12px; border:1px solid #333; }
+        .preview-container h3 { color: var(--secondary); margin-bottom:1rem; }
+        .preview-image { max-width:300px; max-height:300px; border:2px solid #444; border-radius:8px; margin:0 auto; display:none; }
+        @media (max-width:768px){
+            nav ul { flex-direction:column; align-items:center; gap:0.8rem; }
+            .tabs { flex-direction:column; }
+            .tab-btn { width:100%; margin:0.3rem 0; }
+            .hero h2 { font-size:2.2rem; }
+            .hero p { font-size:1.1rem; }
+            .section-title { font-size:1.8rem; }
+            .notification { left:20px; right:20px; max-width:none; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <i class="fas fa-tshirt"></i>
-            <h1>Roblox Templates</h1>
-        </div>
-        <p>Descarga plantillas de shirts y pants por ID</p>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#descargar">Descargar por ID</a></li>
-            <li><a href="#como-funciona">Cómo funciona</a></li>
-        </ul>
-    </nav>
-    
-    <div class="container">
-        <section class="hero" id="inicio">
-            <h2>Descarga Templates por ID</h2>
-            <p>Ingresa el ID de cualquier shirt o pant de Roblox y descarga la plantilla para personalizarla</p>
-            <a href="#descargar" class="btn">Comenzar ahora</a>
-        </section>
-        
-        <section id="descargar">
-            <h2 class="section-title">Descargar por ID</h2>
-            
-            <div class="tabs-container">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="shirts">Shirts</button>
-                    <button class="tab-btn" data-tab="pants">Pants</button>
-                </div>
-                
-                <div class="tab-content active" id="shirts-tab">
-                    <form class="download-form" id="shirt-form">
-                        <div class="form-group">
-                            <label for="shirt-id"><i class="fas fa-tag"></i> ID de la Shirt:</label>
-                            <input type="number" id="shirt-id" placeholder="Ej: 123456789" required min="1">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="shirt-name"><i class="fas fa-font"></i> Nombre personalizado (opcional):</label>
-                            <input type="text" id="shirt-name" placeholder="Mi shirt personalizada">
-                        </div>
-                        
-                        <div class="preview-container">
-                            <h3><i class="fas fa-image"></i> Vista Previa</h3>
-                            <img id="shirt-preview" class="preview-image" alt="Vista previa de la plantilla">
-                            <p id="shirt-preview-text">La vista previa aparecerá aquí después de ingresar un ID válido</p>
-                        </div>
-                        
-                        <button type="submit" class="btn" id="shirt-btn">
-                            <span class="btn-text"><i class="fas fa-download"></i> Descargar Template</span>
-                        </button>
-                    </form>
-                    
-                    <div class="instructions">
-                        <h3><i class="fas fa-info-circle"></i> ¿Cómo encontrar el ID de una shirt?</h3>
-                        <ol>
-                            <li>Ve a la página de la shirt en Roblox</li>
-                            <li>Mira la URL en tu navegador</li>
-                            <li>Encuentra el número después de "/catalog/"</li>
-                            <li>Ese es el ID que debes ingresar arriba</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="pants-tab">
-                    <form class="download-form" id="pants-form">
-                        <div class="form-group">
-                            <label for="pants-id"><i class="fas fa-tag"></i> ID de los Pants:</label>
-                            <input type="number" id="pants-id" placeholder="Ej: 987654321" required min="1">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="pants-name"><i class="fas fa-font"></i> Nombre personalizado (opcional):</label>
-                            <input type="text" id="pants-name" placeholder="Mis pants personalizados">
-                        </div>
-                        
-                        <div class="preview-container">
-                            <h3><i class="fas fa-image"></i> Vista Previa</h3>
-                            <img id="pants-preview" class="preview-image" alt="Vista previa de la plantilla">
-                            <p id="pants-preview-text">La vista previa aparecerá aquí después de ingresar un ID válido</p>
-                        </div>
-                        
-                        <button type="submit" class="btn" id="pants-btn">
-                            <span class="btn-text"><i class="fas fa-download"></i> Descargar Template</span>
-                        </button>
-                    </form>
-                    
-                    <div class="instructions">
-                        <h3><i class="fas fa-info-circle"></i> ¿Cómo encontrar el ID de unos pants?</h3>
-                        <ol>
-                            <li>Ve a la página de los pants en Roblox</li>
-                            <li>Mira la URL en tu navegador</li>
-                            <li>Encuentra el número después de "/catalog/"</li>
-                            <li>Ese es el ID que debes ingresar arriba</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="como-funciona">
-            <h2 class="section-title">¿Cómo funciona?</h2>
-            
-            <div class="instructions">
-                <ol>
-                    <li>Encuentra el ID de la prenda que te interesa en Roblox</li>
-                    <li>Ingresa el ID en el formulario correspondiente (shirt o pants)</li>
-                    <li>Opcionalmente, asigna un nombre personalizado a tu descarga</li>
-                    <li>Haz clic en "Descargar Template"</li>
-                    <li>Se descargará un archivo PNG con la plantilla lista para editar</li>
-                    <li>¡Personalízala a tu gusto y súbela a Roblox!</li>
-                </ol>
-                
-                <p style="margin-top: 1.5rem; font-style: italic; color: var(--gray);">Nota: Solo puedes descargar plantillas de prendas que sean de tu propiedad o que tengan permisos de plantilla habilitados.</p>
-            </div>
-        </section>
+<header>
+    <div class="logo">
+        <i class="fas fa-tshirt"></i>
+        <h1>Roblox Templates</h1>
     </div>
-    
-    <footer>
-        <div class="footer-content">
-            <h3>Roblox Templates</h3>
-            <p>El mejor lugar para descargar plantillas de shirts y pants para Roblox.</p>
-            
-            <p>&copy; 2023 Roblox Templates. Todos los derechos reservados.</p>
+    <p>Descarga plantillas de shirts y pants por ID</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#descargar">Descargar por ID</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <section class="hero" id="inicio">
+        <h2>Descarga Templates por ID</h2>
+        <p>Ingresa el ID de cualquier shirt o pant de Roblox y descarga la plantilla para personalizarla</p>
+        <a href="#descargar" class="btn">Comenzar ahora</a>
+    </section>
+
+    <section id="descargar">
+        <h2 class="section-title">Descargar por ID</h2>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="shirts">Shirts</button>
+                <button class="tab-btn" data-tab="pants">Pants</button>
+            </div>
+
+            <div class="tab-content active" id="shirts-tab">
+                <form class="download-form" id="shirt-form">
+                    <div class="form-group">
+                        <label for="shirt-id"><i class="fas fa-tag"></i> ID de la Shirt:</label>
+                        <input type="number" id="shirt-id" placeholder="Ej: 123456789" required min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shirt-name"><i class="fas fa-font"></i> Nombre personalizado (opcional):</label>
+                        <input type="text" id="shirt-name" placeholder="Mi shirt personalizada">
+                    </div>
+                    
+                    <div class="preview-container">
+                        <h3><i class="fas fa-image"></i> Vista Previa</h3>
+                        <img id="shirt-preview" class="preview-image" alt="Vista previa de la plantilla">
+                        <p id="shirt-preview-text">La vista previa aparecerá aquí después de ingresar un ID válido</p>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="shirt-btn">
+                        <span class="btn-text"><i class="fas fa-download"></i> Descargar Template</span>
+                    </button>
+                </form>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> ¿Cómo encontrar el ID de una shirt?</h3>
+                    <ol>
+                        <li>Ve a la página de la shirt en Roblox</li>
+                        <li>Mira la URL en tu navegador</li>
+                        <li>Encuentra el número después de "/catalog/"</li>
+                        <li>Ese es el ID que debes ingresar arriba</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-content" id="pants-tab">
+                <form class="download-form" id="pants-form">
+                    <div class="form-group">
+                        <label for="pants-id"><i class="fas fa-tag"></i> ID de los Pants:</label>
+                        <input type="number" id="pants-id" placeholder="Ej: 987654321" required min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pants-name"><i class="fas fa-font"></i> Nombre personalizado (opcional):</label>
+                        <input type="text" id="pants-name" placeholder="Mis pants personalizados">
+                    </div>
+                    
+                    <div class="preview-container">
+                        <h3><i class="fas fa-image"></i> Vista Previa</h3>
+                        <img id="pants-preview" class="preview-image" alt="Vista previa de la plantilla">
+                        <p id="pants-preview-text">La vista previa aparecerá aquí después de ingresar un ID válido</p>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="pants-btn">
+                        <span class="btn-text"><i class="fas fa-download"></i> Descargar Template</span>
+                    </button>
+                </form>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> ¿Cómo encontrar el ID de unos pants?</h3>
+                    <ol>
+                        <li>Ve a la página de los pants en Roblox</li>
+                        <li>Mira la URL en tu navegador</li>
+                        <li>Encuentra el número después de "/catalog/"</li>
+                        <li>Ese es el ID que debes ingresar arriba</li>
+                    </ol>
+                </div>
+            </div>
         </div>
-    </footer>
+    </section>
 
-    <script>
-        // Pestañas
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                button.classList.add('active');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
+    <section id="como-funciona">
+        <h2 class="section-title">¿Cómo funciona?</h2>
+        <div class="instructions">
+            <ol>
+                <li>Encuentra el ID de la prenda que te interesa en Roblox</li>
+                <li>Ingresa el ID en el formulario correspondiente (shirt o pants)</li>
+                <li>Opcionalmente, asigna un nombre personalizado a tu descarga</li>
+                <li>Haz clic en "Descargar Template"</li>
+                <li>Se descargará un archivo PNG con la plantilla lista para editar</li>
+                <li>¡Personalízala a tu gusto y súbela a Roblox!</li>
+            </ol>
+            <p style="margin-top:1.5rem; font-style:italic; color:var(--gray);">Nota: Solo puedes descargar plantillas de prendas que sean de tu propiedad o que tengan permisos de plantilla habilitados.</p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <h3>Roblox Templates</h3>
+        <p>El mejor lugar para descargar plantillas de shirts y pants para Roblox.</p>
+        <p>&copy; 2023 Roblox Templates. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Pestañas
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabButtons.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`${tabId}-tab`).classList.add('active');
         });
+    });
 
-        // Formularios
-        const shirtForm = document.getElementById('shirt-form');
-        const pantsForm = document.getElementById('pants-form');
-        const shirtBtn = document.getElementById('shirt-btn');
-        const pantsBtn = document.getElementById('pants-btn');
-        const shirtPreview = document.getElementById('shirt-preview');
-        const pantsPreview = document.getElementById('pants-preview');
-        const shirtPreviewText = document.getElementById('shirt-preview-text');
-        const pantsPreviewText = document.getElementById('pants-preview-text');
+    // Formularios y botones
+    const shirtForm = document.getElementById('shirt-form');
+    const pantsForm = document.getElementById('pants-form');
+    const shirtBtn = document.getElementById('shirt-btn');
+    const pantsBtn = document.getElementById('pants-btn');
+    const shirtPreview = document.getElementById('shirt-preview');
+    const pantsPreview = document.getElementById('pants-preview');
+    const shirtPreviewText = document.getElementById('shirt-preview-text');
+    const pantsPreviewText = document.getElementById('pants-preview-text');
 
-        // Mostrar notificación
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 10);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 400);
-            }, 4000);
+    // Notificación
+    function showNotification(message, type){
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        const icon = type==='success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+        notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+        document.body.appendChild(notification);
+        setTimeout(()=> notification.classList.add('show'),10);
+        setTimeout(()=>{
+            notification.classList.remove('show');
+            setTimeout(()=> document.body.removeChild(notification),400);
+        },4000);
+    }
+
+    // Carga en botón
+    function setLoading(button,isLoading){
+        const btnText = button.querySelector('.btn-text');
+        if(isLoading){
+            button.disabled = true;
+            btnText.innerHTML = '<div class="spinner"></div> Descargando...';
+        } else {
+            button.disabled = false;
+            btnText.innerHTML = '<i class="fas fa-download"></i> Descargar Template';
         }
+    }
 
-        // Mostrar carga en botón
-        function setLoading(button, isLoading) {
-            const btnText = button.querySelector('.btn-text');
-            if (isLoading) {
-                button.disabled = true;
-                btnText.innerHTML = '<div class="spinner"></div> Descargando...';
-            } else {
-                button.disabled = false;
-                btnText.innerHTML = '<i class="fas fa-download"></i> Descargar Template';
-            }
+    // Vista previa
+    function showPreview(id,type){
+        const preview = type==='shirt' ? shirtPreview : pantsPreview;
+        const previewText = type==='shirt' ? shirtPreviewText : pantsPreviewText;
+        const proxyUrl = 'https://corsproxy.io/?';
+        const assetUrl = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
+
+        preview.onload = ()=> { preview.style.display='block'; previewText.style.display='none'; }
+        preview.onerror = ()=> { preview.style.display='none'; previewText.style.display='block'; previewText.innerHTML='No se pudo cargar la vista previa. Verifica el ID.'; }
+
+        preview.src = proxyUrl + encodeURIComponent(assetUrl);
+    }
+
+    document.getElementById('shirt-id').addEventListener('input',function(){
+        if(this.value && this.value.length>5) showPreview(this.value,'shirt');
+    });
+
+    document.getElementById('pants-id').addEventListener('input',function(){
+        if(this.value && this.value.length>5) showPreview(this.value,'pants');
+    });
+
+    // Formularios submit
+    shirtForm.addEventListener('submit',async e=>{
+        e.preventDefault();
+        const id = document.getElementById('shirt-id').value;
+        if(id){
+            setLoading(shirtBtn,true);
+            await downloadTemplate(id,'shirt','shirt-name');
+            setLoading(shirtBtn,false);
         }
+    });
 
-        // Vista previa de la plantilla
-        function showPreview(id, type) {
-            const preview = type === 'shirt' ? shirtPreview : pantsPreview;
-            const previewText = type === 'shirt' ? shirtPreviewText : pantsPreviewText;
-            
-            // Usar un proxy para evitar problemas de CORS
+    pantsForm.addEventListener('submit',async e=>{
+        e.preventDefault();
+        const id = document.getElementById('pants-id').value;
+        if(id){
+            setLoading(pantsBtn,true);
+            await downloadTemplate(id,'pants','pants-name');
+            setLoading(pantsBtn,false);
+        }
+    });
+
+    // Descargar como PNG
+    async function downloadTemplate(id,type,nameInputId){
+        const nameInput = document.getElementById(nameInputId);
+        const name = nameInput.value.trim() || `${type}_${id}`;
+        try{
             const proxyUrl = 'https://corsproxy.io/?';
             const assetUrl = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
-            
-            preview.onload = function() {
-                preview.style.display = 'block';
-                previewText.style.display = 'none';
-            };
-            
-            preview.onerror = function() {
-                preview.style.display = 'none';
-                previewText.style.display = 'block';
-                previewText.innerHTML = 'No se pudo cargar la vista previa. Verifica el ID.';
-            };
-            
-            preview.src = proxyUrl + encodeURIComponent(assetUrl);
+            const response = await fetch(proxyUrl + encodeURIComponent(assetUrl));
+            if(!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
+            const blob = await response.blob();
+            if(blob.size===0 || blob.type.indexOf('image')===-1) throw new Error('El asset no contiene una imagen válida');
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = `${name}.png`; // Forzar PNG
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(()=>URL.revokeObjectURL(blobUrl),100);
+            showNotification('Plantilla descargada correctamente','success');
+        } catch(error){
+            console.error('Error descargando la plantilla:',error);
+            showNotification('Error al descargar la plantilla. Verifica el ID e intenta nuevamente.','error');
         }
+    }
 
-        // Event listeners para mostrar vista previa
-        document.getElementById('shirt-id').addEventListener('input', function() {
-            if (this.value && this.value.length > 5) {
-                showPreview(this.value, 'shirt');
-            }
-        });
-        
-        document.getElementById('pants-id').addEventListener('input', function() {
-            if (this.value && this.value.length > 5) {
-                showPreview(this.value, 'pants');
-            }
-        });
-
-        shirtForm.addEventListener('submit', async e => {
+    // Scroll suave
+    document.querySelectorAll('nav a').forEach(anchor=>{
+        anchor.addEventListener('click',function(e){
             e.preventDefault();
-            const id = document.getElementById('shirt-id').value;
-            if (id) {
-                setLoading(shirtBtn, true);
-                await downloadTemplate(id, 'shirt', 'shirt-name');
-                setLoading(shirtBtn, false);
-            }
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) window.scrollTo({top: target.offsetTop-100, behavior:'smooth'});
         });
+    });
 
-        pantsForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            const id = document.getElementById('pants-id').value;
-            if (id) {
-                setLoading(pantsBtn, true);
-                await downloadTemplate(id, 'pants', 'pants-name');
-                setLoading(pantsBtn, false);
-            }
-        });
-
-        // Descargar PNG con nombre personalizado
-        async function downloadTemplate(id, type, nameInputId) {
-            const nameInput = document.getElementById(nameInputId);
-            const name = nameInput.value.trim() || `${type}_${id}`;
-            
-            try {
-                // Usamos un proxy CORS para evitar problemas
-                const proxyUrl = 'https://corsproxy.io/?';
-                const assetUrl = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
-                
-                const response = await fetch(proxyUrl + encodeURIComponent(assetUrl));
-                
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: ${response.statusText}`);
-                }
-                
-                const blob = await response.blob();
-                
-                // Verificar si el blob contiene una imagen válida
-                if (blob.size === 0 || blob.type.indexOf('image') === -1) {
-                    throw new Error('El asset no contiene una imagen válida');
-                }
-                
-                // Crear URL para el blob
-                const blobUrl = URL.createObjectURL(blob);
-                
-                // Crear enlace de descarga
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = `${name}.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                // Liberar recursos
-                setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
-                
-                showNotification('Plantilla descargada correctamente', 'success');
-                
-            } catch (error) {
-                console.error('Error descargando la plantilla:', error);
-                showNotification('Error al descargar la plantilla. Verifica el ID e intenta nuevamente.', 'error');
-            }
-        }
-
-        // Scroll suave
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
-            });
-        });
-
-        // Ejemplo de IDs válidos para que el usuario pruebe
-        document.getElementById('shirt-id').placeholder = 'Ej: 484742743';
-        document.getElementById('pants-id').placeholder = 'Ej: 484743173';
-    </script>
+    // Ejemplos válidos
+    document.getElementById('shirt-id').placeholder = 'Ej: 484742743';
+    document.getElementById('pants-id').placeholder = 'Ej: 484743173';
+</script>
 </body>
 </html>
