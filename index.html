@@ -414,14 +414,10 @@
             button.addEventListener('click', () => {
                 const tabId = button.getAttribute('data-tab');
                 
-                // Remover la clase active de todos los botones y contenidos
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 tabContents.forEach(content => content.classList.remove('active'));
                 
-                // Agregar la clase active al botón clickeado
                 button.classList.add('active');
-                
-                // Mostrar el contenido correspondiente
                 document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
@@ -450,23 +446,19 @@
             }
         });
         
-        // Función para simular la descarga
+        // Descargar usando assetdelivery de Roblox
         function downloadTemplate(id, type, name) {
-            // En una implementación real, aquí se conectaría con la API de Roblox
-            // Para este ejemplo, simulamos la descarga
+            const url = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
             
-            alert(`Iniciando descarga de ${type} con ID: ${id}\nNombre: ${name}`);
-            
-            // Crear un elemento de enlace temporal para descargar
             const link = document.createElement('a');
-            link.href = 'https://via.placeholder.com/500x500.png?text=Plantilla+Roblox';
+            link.href = url;
             link.download = `${name}_${id}.png`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
         
-        // Scroll suave para los enlaces de navegación
+        // Scroll suave
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
