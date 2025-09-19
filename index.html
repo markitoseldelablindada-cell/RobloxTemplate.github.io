@@ -14,6 +14,8 @@
             --light: #e0e0e0;
             --gray: #9e9e9e;
             --card-bg: #1e1e1e;
+            --success: #4caf50;
+            --error: #f44336;
         }
         
         * {
@@ -123,12 +125,37 @@
             transition: all 0.3s;
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn:hover {
             background-color: var(--secondary);
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         .tabs-container {
@@ -265,6 +292,34 @@
             margin: 0 auto;
         }
         
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background-color: var(--success);
+        }
+        
+        .notification.error {
+            background-color: var(--error);
+        }
+        
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
@@ -328,7 +383,7 @@
                     <form class="download-form" id="shirt-form">
                         <div class="form-group">
                             <label for="shirt-id">ID de la Shirt:</label>
-                            <input type="number" id="shirt-id" placeholder="Ej: 123456789" required>
+                            <input type="number" id="shirt-id" placeholder="Ej: 123456789" required min="1">
                         </div>
                         
                         <div class="form-group">
@@ -336,7 +391,9 @@
                             <input type="text" id="shirt-name" placeholder="Mi shirt personalizada">
                         </div>
                         
-                        <button type="submit" class="btn">Descargar Template</button>
+                        <button type="submit" class="btn" id="shirt-btn">
+                            <span class="btn-text">Descargar Template</span>
+                        </button>
                     </form>
                     
                     <div class="instructions">
@@ -354,7 +411,7 @@
                     <form class="download-form" id="pants-form">
                         <div class="form-group">
                             <label for="pants-id">ID de los Pants:</label>
-                            <input type="number" id="pants-id" placeholder="Ej: 987654321" required>
+                            <input type="number" id="pants-id" placeholder="Ej: 987654321" required min="1">
                         </div>
                         
                         <div class="form-group">
@@ -362,7 +419,9 @@
                             <input type="text" id="pants-name" placeholder="Mis pants personalizados">
                         </div>
                         
-                        <button type="submit" class="btn">Descargar Template</button>
+                        <button type="submit" class="btn" id="pants-btn">
+                            <span class="btn-text">Descargar Template</span>
+                        </button>
                     </form>
                     
                     <div class="instructions">
@@ -422,47 +481,98 @@
         // Formularios
         const shirtForm = document.getElementById('shirt-form');
         const pantsForm = document.getElementById('pants-form');
+        const shirtBtn = document.getElementById('shirt-btn');
+        const pantsBtn = document.getElementById('pants-btn');
 
-        shirtForm.addEventListener('submit', e => {
+        // Mostrar notificación
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Mostrar carga en botón
+        function setLoading(button, isLoading) {
+            const btnText = button.querySelector('.btn-text');
+            if (isLoading) {
+                button.disabled = true;
+                btnText.innerHTML = '<div class="spinner"></div> Descargando...';
+            } else {
+                button.disabled = false;
+                btnText.textContent = 'Descargar Template';
+            }
+        }
+
+        shirtForm.addEventListener('submit', async e => {
             e.preventDefault();
             const id = document.getElementById('shirt-id').value;
-            if (id) downloadTemplate(id, 'shirt', 'shirt-name');
+            if (id) {
+                setLoading(shirtBtn, true);
+                await downloadTemplate(id, 'shirt', 'shirt-name');
+                setLoading(shirtBtn, false);
+            }
         });
 
-        pantsForm.addEventListener('submit', e => {
+        pantsForm.addEventListener('submit', async e => {
             e.preventDefault();
             const id = document.getElementById('pants-id').value;
-            if (id) downloadTemplate(id, 'pants', 'pants-name');
+            if (id) {
+                setLoading(pantsBtn, true);
+                await downloadTemplate(id, 'pants', 'pants-name');
+                setLoading(pantsBtn, false);
+            }
         });
 
         // Descargar PNG con nombre personalizado
-        function downloadTemplate(id, type, nameInputId) {
+        async function downloadTemplate(id, type, nameInputId) {
             const nameInput = document.getElementById(nameInputId);
             const name = nameInput.value.trim() || `${type}_${id}`;
-            const url = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
-
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.onload = () => {
-                const canvas = document.createElement("canvas");
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0);
-
-                const link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png");
+            
+            try {
+                // Usamos un proxy CORS para evitar problemas
+                const proxyUrl = 'https://corsproxy.io/?';
+                const assetUrl = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
+                
+                const response = await fetch(proxyUrl + encodeURIComponent(assetUrl));
+                
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+                
+                const blob = await response.blob();
+                
+                // Crear URL para el blob
+                const blobUrl = URL.createObjectURL(blob);
+                
+                // Crear enlace de descarga
+                const link = document.createElement('a');
+                link.href = blobUrl;
                 link.download = `${name}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-            };
-
-            img.onerror = () => {
-                alert("⚠️ No se pudo cargar la plantilla. Puede que este asset no tenga template disponible.");
-            };
-
-            img.src = url;
+                
+                // Liberar recursos
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                
+                showNotification('✅ Plantilla descargada correctamente', 'success');
+                
+            } catch (error) {
+                console.error('Error descargando la plantilla:', error);
+                showNotification('❌ Error al descargar la plantilla. Verifica el ID e intenta nuevamente.', 'error');
+            }
         }
 
         // Scroll suave
